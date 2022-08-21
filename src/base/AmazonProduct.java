@@ -33,29 +33,25 @@ public class AmazonProduct {
 		        
 		        WebElement SearchBtn = driver.findElement(By.id("nav-search-submit-button"));
 		        SearchBtn.click();
-		        
-		     
-		      //div[@data-component-type='s-search-result']//h2
-		      //div[@data-component-type='s-search-result']//span[@class='a-price']//span[@class='a-price-whole']
+		      
 		        
 		        //List out product & prices
-		        List<WebElement> Product =driver.findElements(By.xpath("//div[@data-component-type='s-search-result']//h2"));
+		        List<WebElement> Product =driver.findElements(By.xpath("//div[@data-component-type='s-search-result']//h2/a"));
 		        List<WebElement> Price =driver.findElements(By.xpath("//div[@data-component-type='s-search-result']//span[@class='a-price']//span[@class='a-price-whole']"));
 
 		        for(int i=0; i< Product.size();i++) {
 		        	System.out.println("Product "+Product.get(i).getText()+ " "+ Price.get(i).getText());
 		        }
 		        
-		        
+		        //Get Window handles
 		        String ParentWin = driver.getWindowHandle();
 		        String Expected = Product.get(0).getText();
 		        
 		        //Open first product 
-		        WebElement OpenLink = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a[1]"));
-		        OpenLink.click();
-		        
-		        //Product.get(0).click();
-		        
+		       
+		        Product.get(0).click();
+		       
+		        //Switch window
 		        Set <String> Allwindows = driver.getWindowHandles();
 		        for (String win: Allwindows) {
 		        	System.out.println(win);
@@ -66,7 +62,7 @@ public class AmazonProduct {
 		        //validate title
 		        WebElement title = driver.findElement(By.id("productTitle"));
 		        String Actual = title.getText();
-		        System.out.println("First product is " + Actual);
+		        System.out.println("First product is: " + Actual);
 		        if (Actual.equals(Expected)){
 		        	System.out.println("Title Validated");
 		        }else
